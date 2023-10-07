@@ -1,11 +1,11 @@
 const express = require("express");
-const { PORT } = require("./constants");
 const cors = require("cors");
 const errorHandler = require("./middleware/errorhandler");
 const notFound = require("./middleware/notFound");
 const connectDB = require("./config/db");
 const colors = require('colors');
 const path = require('path')
+const { PORT } = require("./constants");
 
 const app = express();
 connectDB()
