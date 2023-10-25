@@ -1,9 +1,10 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
+
 const constant = {
   MONGO_URL: process.env.MONGO_URL,
-  PORT: process.env.PORT || 3000,
+  PORT: process.env.PORT || 4000,
   JWT_SECRET: process.env.JWT_SECRET,
   MESSAGES: {
     USER_EXIST: "User already exists",

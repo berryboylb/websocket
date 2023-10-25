@@ -1,4 +1,5 @@
 /node_modules
+/mongodb-data
 
 *.env
 *yarn.lock

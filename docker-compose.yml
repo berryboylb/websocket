@@ -1,0 +1,56 @@
+version: "3"
+services:
+  websocket1:
+    container_name: websocket345_1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4000"  # Map container port 4000 to host port 4001
+    expose:
+      - "4000"
+    env_file:
+      - .env 
+    environment:
+      - NODE_ENV=production
+      - MONGO_URL=mongodb://mongodb:27017/chats
+    volumes:
+      - .:/app
+    command: ["npm", "start"]
+
+  websocket2:
+    container_name: websocket345_2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4002:4000"  # Map container port 4000 to host port 4002
+    expose:
+      - "4000"
+    env_file:
+      - .env 
+    environment:
+      - NODE_ENV=production
+      - MONGO_URL=mongodb://mongodb:27017/chats
+    volumes:
+      - .:/app
+    command: ["npm", "start"]
+
+  nginx:
+    container_name: nginx345
+    image: nginx
+    ports:
+      - "80:80"  # Map Nginx's HTTP port to host port 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Mount Nginx configuration file
+    depends_on:
+      - websocket1
+      - websocket2
+
+  mongodb:
+    image: mongo
+    container_name: mongodb345
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb-data:/data/db  # Persist MongoDB data
